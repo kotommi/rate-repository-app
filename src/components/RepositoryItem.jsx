@@ -1,10 +1,10 @@
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 
 const RepositoryItem = ({props}) => {
-    console.log(props);
     const item = props.item;
     return (
         <View>
+            <Image source={item.avatar}></Image>
             <Text>Full name: {item.fullName}</Text>
             <Text>Description: {item.description}</Text>
             <Text>Language: {item.language}</Text>
