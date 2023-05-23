@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
@@ -20,8 +20,10 @@ const onPress = () => {
 const AppBar = () => {
     return (
         <View style={styles.container}>
-            <AppBarTab title={"Repositories"} linkTo={"/"} onPress={onPress}></AppBarTab>
-            <AppBarTab title={"Sign In"} linkTo={"/signin"} />
+            <ScrollView horizontal>
+                <AppBarTab title={"Repositories"} linkTo={"/"} onPress={onPress}></AppBarTab>
+                <AppBarTab title={"Sign In"} linkTo={"/signin"} />
+            </ScrollView>
         </View>
     );
 };
