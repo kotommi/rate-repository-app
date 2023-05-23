@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.appBar,
         border: "solid",
         flexDirection: "row",
-        gap: 10,
     },
+    tabStyle: {
+        margin: 10
+    }
 });
 
 const onPress = () => {
@@ -20,9 +22,9 @@ const onPress = () => {
 const AppBar = () => {
     return (
         <View style={styles.container}>
-            <ScrollView horizontal>
+            <ScrollView horizontal style={styles.scrollView}>
                 <AppBarTab title={"Repositories"} linkTo={"/"} onPress={onPress}></AppBarTab>
-                <AppBarTab title={"Sign In"} linkTo={"/signin"} />
+                <AppBarTab title={"Sign In"} linkTo={"/signin"} style={styles.tabStyle} />
             </ScrollView>
         </View>
     );
