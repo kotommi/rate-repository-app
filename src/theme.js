@@ -4,7 +4,8 @@ const theme = {
       textSecondary: '#586069',
       primary: '#0366d6',
       appBar: '#24292e',
-      textWhite: '#f2f2f2'
+      textWhite: '#f2f2f2',
+      errorRed: '#d73a4a'
     },
     fontSizes: {
       body: 14,
