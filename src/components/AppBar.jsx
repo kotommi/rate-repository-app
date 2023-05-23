@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: Constants.statusBarHeight,
         backgroundColor: theme.colors.appBar,
-        border: "solid"
-        // ...
+        border: "solid",
+        flexDirection: "row",
+        gap: 10,
     },
-    // ...
 });
 
 const onPress = () => {
@@ -20,7 +20,8 @@ const onPress = () => {
 const AppBar = () => {
     return (
         <View style={styles.container}>
-            <AppBarTab title={"Repositories"} onPress={onPress}></AppBarTab>
+            <AppBarTab title={"Repositories"} linkTo={"/"} onPress={onPress}></AppBarTab>
+            <AppBarTab title={"Sign In"} linkTo={"/signin"} />
         </View>
     );
 };
