@@ -16,15 +16,18 @@ const styles = StyleSheet.create({
     },
     languageBadge: {
         backgroundColor: theme.colors.primary,
-        borderRadius: 2,
+        borderRadius: 3,
+        padding: 3,
+        paddingHorizontal: 6,
     },
     avatarContainer: {
         flexDirection: "row",
+        padding: 3
     },
     nameContainer: {
         flexDirection: "column",
         flexGrow: 0,
-        alignItems: "flex-start"
+        alignItems: "flex-start",
     },
     headerContainer: {
         flexDirection: "row",
@@ -32,6 +35,7 @@ const styles = StyleSheet.create({
     },
     infoContainer: {
         flexGrow: 0,
+        flexDirection: "row"
     },
     bodyContainer: {
         flexDirection: "row",
@@ -39,6 +43,12 @@ const styles = StyleSheet.create({
         gap: 10,
         justifyContent: "space-between"
     },
+    countContainer: {
+        paddingHorizontal: 15,
+        flexGrow: 0,
+        justifyContent: "center",
+        alignItems: "center"
+    }
 })
 
 const CardHeader = ({ item }) => {
@@ -59,21 +69,26 @@ const CardHeader = ({ item }) => {
     )
 }
 
+const LabeledCount = ({ count, label }) => {
+    return (
+        <View style={styles.countContainer}>
+            <Text fontWeight="bold">{countToString(count)}</Text>
+            <Text color="textSecondary">{label}</Text>
+        </View>
+    );
+};
+
+const countToString = num => {
+    return num > 1000 ? `${Number(num / 1000).toFixed(1)}k` : num
+}
+
 const CardBody = ({ item }) => {
     return (
         <View style={styles.infoContainer}>
-            <View style={styles.bodyContainer}>
-                <Text fontWeight={"bold"}> {item.stargazersCount > 1000 ? `${Number(item.stargazersCount / 1000).toFixed(1)}k` : item.stargazersCount}</Text>
-                <Text fontWeight={"bold"}>{item.forksCount > 1000 ? `${Number(item.forksCount / 1000).toFixed(1)}k` : item.forksCount}</Text>
-                <Text fontWeight={"bold"}>{item.reviewCount}</Text>
-                <Text fontWeight={"bold"}>{item.ratingAverage}</Text>
-            </View>
-            <View style={styles.bodyContainer}>
-                <Text>Stars</Text>
-                <Text>Forks</Text>
-                <Text>Reviews</Text>
-                <Text>Rating</Text>
-            </View>
+            <LabeledCount count={item.stargazersCount} label={"Stars"} />
+            <LabeledCount count={item.forksCount} label={"Forks"} />
+            <LabeledCount count={item.reviewCount} label={"Reviews"} />
+            <LabeledCount count={item.ratingAverage} label={"Rating"} />
         </View>
     );
 };

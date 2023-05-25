@@ -17,15 +17,17 @@ const styles = StyleSheet.create({
     },
     signButton : {
         backgroundColor: theme.colors.primary,
-        borderRadius: 5
+        borderRadius: 5,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
     }
 })
 
 const SignIn = () => {
 
     const validationSchema = yup.object().shape({
-        username: yup.string().required(),
-        password: yup.string().required(),
+        username: yup.string().required("Username is required"),
+        password: yup.string().required("Password is required"),
     });
 
     const initialValues = {

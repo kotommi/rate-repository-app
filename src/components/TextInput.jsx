@@ -3,7 +3,9 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
     container: {
-        border: "solid",
+        paddingVertical: 10,
+        paddingHorizontal:15,
+        borderStyle: "solid",
         borderWidth: 1,
         borderRadius: 5,
     },
