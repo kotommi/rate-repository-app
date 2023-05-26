@@ -36,14 +36,20 @@ const SignIn = () => {
         password: "",
     };
 
-    const [SignIn, result] = useSignIn();
+    const [asd, result] = useSignIn();
+
+    // ideas 
+    // check example if the form has issues
+    // sth with async?
 
     const onSubmit = async (values) => {
         const { username, password } = values;
-        console.log(values);
-
-        const { data } = await SignIn({ username, password });
-        console.log(data);
+        try {
+            const data = await asd({ username, password });
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+        }
 
     };
 
