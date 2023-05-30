@@ -49,6 +49,7 @@ const SignIn = () => {
             console.log(data);
         } catch (e) {
             console.log(e);
+            console.log(result);
         }
 
     };

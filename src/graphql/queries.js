@@ -19,4 +19,13 @@ query Repositories {
   }
 `;
 
+export const ME_SIGNED = gql`
+query Me{
+  me {
+    id
+    username
+  }
+}
+`
+
 // other queries...
