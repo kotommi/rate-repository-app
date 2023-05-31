@@ -1,5 +1,4 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
-import Text from '../Text';
 import Constants from 'expo-constants';
 import theme from '../../theme';
 import AppBarTab from './AppBarTab';
@@ -21,17 +20,14 @@ const styles = StyleSheet.create({
 
 
 const AppBar = () => {
-    const { loading, error, data } = useQuery(ME_SIGNED);
-    console.log(data);
+    const { data } = useQuery(ME_SIGNED);
     const userName = data?.me?.username;
-    console.log(userName);
 
 
     const ac = useApolloClient();
     const store = useAuthStorage();
 
     const handleSignOut = async () => {
-        console.log("asd");
         await store.removeAccessToken();
         ac.resetStore();
         console.log("removed auth");

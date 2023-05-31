@@ -31,7 +31,6 @@ const PressableTab = ({ title, onPress }) => {
 }
 
 const AppBarTab = ({ title, linkTo, onPress }) => {
-    console.log(linkTo);
     return linkTo ? <LinkTab title={title} linkTo={linkTo}></LinkTab> : <PressableTab title={title} onPress={onPress}></PressableTab>
 }
 
