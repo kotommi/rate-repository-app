@@ -32,4 +32,27 @@ query REPO($id: ID!) {
 }
 `
 
+export const GET_REVIEWS = gql`
+query GET_REVIEWS($id: ID!) {
+  repository(id: $id) {
+    id
+    fullName
+    reviews {
+      edges{
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 // other queries...
