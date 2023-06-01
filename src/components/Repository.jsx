@@ -21,11 +21,16 @@ const styles = StyleSheet.create({
         padding: 5
     },
     scoreContainer: {
-        padding: 5,
+        padding: 3,
+    },
+    circleText: {
         borderStyle: "solid",
-        backgroundColor: theme.colors.primary,
+        borderWidth: 1,
+        borderColor: theme.colors.primary,
         width: 30,
-        borderRadius: 15
+        height: 30,
+        borderRadius: 15,
+        textAlign: "center"
     }
 })
 
@@ -40,7 +45,7 @@ const ReviewItem = ({ review }) => {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.scoreContainer}>
-                <Text >{review.rating}</Text>
+                <Text style={styles.circleText} >{review.rating}</Text>
             </View>
             <View style={styles.textContainer}>
                 <Text fontWeight={"bold"}>{review.user.username}</Text>
