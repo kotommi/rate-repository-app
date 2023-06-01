@@ -28,4 +28,14 @@ query Me{
 }
 `
 
+export const GET_REPOSITORY = gql`
+query REPO($id: ID!) {
+  repository(id: $id) {
+    id
+    fullName
+    url
+  }
+}
+`
+
 // other queries...

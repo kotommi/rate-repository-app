@@ -1,6 +1,6 @@
 import Text from "../Text";
 import theme from "../../theme";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Pressable } from "react-native";
 
 const styles = StyleSheet.create({
     cardContainer: {
@@ -93,11 +93,26 @@ const CardBody = ({ item }) => {
     );
 };
 
-const Card = ({ item }) => {
+const CardFooter = ({ item }) => {
+    const onPress = () => {
+        console.log("hubbed", item.ur)
+    }
+
     return (
-        <View style={styles.cardContainer}>
+        <View>
+            <Pressable onPress={onPress}>
+                <Text style={styles.languageBadge} color="textWhite">Github</Text>
+            </Pressable>
+        </View>
+    )
+}
+
+const Card = ({ item, showGithub }) => {
+    return (
+        <View style={styles.cardContainer} testID="repositoryItem">
             <CardHeader item={item}></CardHeader>
             <CardBody item={item}></CardBody>
+            <CardFooter item={item} />
         </View>
     );
 };

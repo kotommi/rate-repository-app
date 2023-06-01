@@ -20,7 +20,7 @@ export const RepositoryListContainer = ({ repositories }) => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={(item) => {
         return (
-          <RepositoryItem props={item} />
+          <RepositoryItem item={item} />
         )
       }}
     />

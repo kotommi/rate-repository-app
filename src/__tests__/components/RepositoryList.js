@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react-native';
-import RepositoryItem from '../../components/RepositoryList/RepositoryItem';
+import { within } from '@testing-library/react-native';
+import { RepositoryListContainer } from '../../components/RepositoryList';
 
 describe('RepositoryList', () => {
     describe('RepositoryListContainer', () => {
@@ -48,10 +49,28 @@ describe('RepositoryList', () => {
             };
 
             // Add your test code here
-            const item = { item: repositories.edges[0].node };
-            render(<RepositoryItem props={item} />);
-            screen.debug();
-            expect(screen.getByText("Stars")).toBeDefined();
+            // Implement a test that ensures that the RepositoryListContainer component renders 
+            // repository's name, description, language, forks count, stargazers count, rating average, and review count correctly. 
+            render(<RepositoryListContainer repositories={repositories} />);
+            const repositoryItems = screen.getAllByTestId('repositoryItem');
+            const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
+
+            const formik = repositories.edges[0].node;
+            expect(within(firstRepositoryItem).getByText(formik.fullName)).toBeDefined();
+            expect(within(firstRepositoryItem).getByText(formik.description)).toBeDefined();
+            expect(within(firstRepositoryItem).getByText("1.6k")).toBeDefined();
+            expect(within(firstRepositoryItem).getByText("21.9k")).toBeDefined();
+            expect(within(firstRepositoryItem).getByText("88")).toBeDefined();
+            expect(within(firstRepositoryItem).getByText("3")).toBeDefined();
+
+            const asynclib = repositories.edges[1].node;
+            expect(within(secondRepositoryItem).getByText(asynclib.fullName)).toBeDefined();
+            expect(within(secondRepositoryItem).getByText(asynclib.description)).toBeDefined();
+            expect(within(secondRepositoryItem).getByText("69")).toBeDefined();
+            expect(within(secondRepositoryItem).getByText("1.8k")).toBeDefined();
+            expect(within(secondRepositoryItem).getByText("72")).toBeDefined();
+            expect(within(secondRepositoryItem).getByText("3")).toBeDefined();
+
         });
     });
 });

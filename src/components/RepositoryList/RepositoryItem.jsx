@@ -1,9 +1,12 @@
+import useRepository from "../../hooks/useRepository";
 import Card from "./Card";
 
-const RepositoryItem = ({ props }) => {
-    const item = props.item;
+const RepositoryItem = ({ item, showGitHub }) => {
+    const i = item.item;
+    const a = useRepository(i.id);
+    console.log(a);
     return (
-        <Card item={item}></Card>
+        <Card item={i} showGitHub={showGitHub}></Card>
     );
 };
 

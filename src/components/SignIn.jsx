@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const SignIn = () => {
-
+export const SignInContainer = ({ onSubmit }) => {
     const validationSchema = yup.object().shape({
         username: yup.string().required("Username is required"),
         password: yup.string().required("Password is required"),
@@ -34,24 +33,6 @@ const SignIn = () => {
     const initialValues = {
         username: "",
         password: "",
-    };
-
-    const [asd, result] = useSignIn();
-
-    // ideas 
-    // check example if the form has issues
-    // sth with async?
-
-    const onSubmit = async (values) => {
-        const { username, password } = values;
-        try {
-            const data = await asd({ username, password });
-            console.log(data);
-        } catch (e) {
-            console.log(e);
-            console.log(result);
-        }
-
     };
 
     const SignInForm = ({ onSubmit }) => {
@@ -65,11 +46,29 @@ const SignIn = () => {
             </View>
         );
     };
+
     return (
         <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
             {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit}></SignInForm>}
         </Formik>
     )
+}
+
+const SignIn = () => {
+
+    const [signInFunc] = useSignIn();
+
+    const onSubmit = async (values) => {
+        const { username, password } = values;
+        try {
+            const data = await signInFunc({ username, password });
+            console.log(data);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    return <SignInContainer onSubmit={onSubmit} />
 };
 
 export default SignIn;
