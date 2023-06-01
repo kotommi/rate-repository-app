@@ -1,10 +1,33 @@
 import useRepository from "../hooks/useRepository";
 import useReviews from "../hooks/useReviews";
 import Card from "./RepositoryList/Card";
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import { View } from "react-native";
 import Text from "./Text";
 import { useParams } from "react-router-native";
+import theme from "../theme";
+import { format } from "date-fns";
+
+const styles = StyleSheet.create({
+    cardContainer: {
+        maxWidth: 400,
+        backgroundColor: "white",
+        padding: 5,
+        flexDirection: "row",
+        flexGrow: 0,
+    },
+    textContainer: {
+        flexDirection: "column",
+        padding: 5
+    },
+    scoreContainer: {
+        padding: 5,
+        borderStyle: "solid",
+        backgroundColor: theme.colors.primary,
+        width: 30,
+        borderRadius: 15
+    }
+})
 
 const RepositoryInfo = ({ repository }) => {
     // Repository's information implemented in the previous exercise
@@ -13,9 +36,17 @@ const RepositoryInfo = ({ repository }) => {
 
 const ReviewItem = ({ review }) => {
     // Single review item
+    const dateString = format(new Date(review.createdAt), "dd.MM.yyyy")
     return (
-        <View>
-            <Text>{review.user.username}</Text>
+        <View style={styles.cardContainer}>
+            <View style={styles.scoreContainer}>
+                <Text >{review.rating}</Text>
+            </View>
+            <View style={styles.textContainer}>
+                <Text fontWeight={"bold"}>{review.user.username}</Text>
+                <Text>{dateString}</Text>
+                <Text numberOfLines={3}>{review.text}</Text>
+            </View>
         </View>
     )
 };
