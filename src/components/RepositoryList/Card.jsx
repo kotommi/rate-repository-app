@@ -102,14 +102,13 @@ const CardBody = ({ item }) => {
 
 const CardFooter = ({ item }) => {
     const onPress = () => {
-        console.log("hubbed", item.url)
         Linking.openURL(item.url);
     }
 
     return (
         <View>
             <Pressable onPress={onPress}>
-                <Text style={styles.githubBadge} color="textWhite">Github</Text>
+                <Text style={styles.githubBadge} color="textWhite">Open in GitHub</Text>
             </Pressable>
         </View>
     )
