@@ -1,6 +1,6 @@
 import Text from "../Text";
 import theme from "../../theme";
-import { StyleSheet, View, Image, Pressable } from "react-native";
+import { StyleSheet, View, Image, Pressable, Linking } from "react-native";
 
 const styles = StyleSheet.create({
     cardContainer: {
@@ -19,6 +19,13 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         padding: 3,
         paddingHorizontal: 6,
+    },
+    githubBadge: {
+        backgroundColor: theme.colors.primary,
+        borderRadius: 3,
+        padding: 3,
+        paddingHorizontal: 6,
+        textAlign: "center"
     },
     avatarContainer: {
         flexDirection: "row",
@@ -95,24 +102,25 @@ const CardBody = ({ item }) => {
 
 const CardFooter = ({ item }) => {
     const onPress = () => {
-        console.log("hubbed", item.ur)
+        console.log("hubbed", item.url)
+        Linking.openURL(item.url);
     }
 
     return (
         <View>
             <Pressable onPress={onPress}>
-                <Text style={styles.languageBadge} color="textWhite">Github</Text>
+                <Text style={styles.githubBadge} color="textWhite">Github</Text>
             </Pressable>
         </View>
     )
 }
 
-const Card = ({ item, showGithub }) => {
+const Card = ({ item, showGitHub }) => {
     return (
         <View style={styles.cardContainer} testID="repositoryItem">
             <CardHeader item={item}></CardHeader>
             <CardBody item={item}></CardBody>
-            <CardFooter item={item} />
+            {showGitHub ? <CardFooter item={item} /> : null}
         </View>
     );
 };

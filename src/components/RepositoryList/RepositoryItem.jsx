@@ -1,12 +1,18 @@
-import useRepository from "../../hooks/useRepository";
+import { Pressable } from "react-native";
 import Card from "./Card";
+import { useNavigate } from "react-router-native";
 
-const RepositoryItem = ({ item, showGitHub }) => {
+const RepositoryItem = ({ item }) => {
     const i = item.item;
-    const a = useRepository(i.id);
-    console.log(a);
+
+    const navigate = useNavigate()
+    const onPress = () => {
+        navigate(`/repository/${i.id}`)
+    }
     return (
-        <Card item={i} showGitHub={showGitHub}></Card>
+        <Pressable onPress={onPress}>
+            <Card item={i} ></Card>
+        </Pressable>
     );
 };
 
