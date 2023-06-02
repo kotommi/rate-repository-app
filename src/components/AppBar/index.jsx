@@ -42,14 +42,20 @@ const AppBar = () => {
         )
     }
 
+    const SignedOutTabs = () => {
+        return (
+            <>
+                <AppBarTab title={"Sign In"} linkTo={"/signin"} style={styles.tabStyle} />
+                <AppBarTab title={"Sign Up"} linkTo={"/signup"} style={styles.tabStyle} />
+            </>
+        )
+    }
+
     return (
         <View style={styles.container}>
             <ScrollView horizontal style={styles.scrollView}>
                 <AppBarTab title={"Repositories"} linkTo={"/"} ></AppBarTab>
-                {!userName ?
-                    <AppBarTab title={"Sign In"} linkTo={"/signin"} style={styles.tabStyle} /> :
-                    SignedInTabs()
-                }
+                {!userName ? SignedOutTabs() : SignedInTabs()}
             </ScrollView>
         </View>
     );
