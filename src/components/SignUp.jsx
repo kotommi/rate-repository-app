@@ -4,6 +4,9 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import theme from '../theme';
+import useSignUp from '../hooks/useSignUp';
+import useSignIn from '../hooks/useSignIn';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
 
 export const SignUpContainer = ({ onSubmit }) => {
     const initialValues = {
-        userName: "",
+        username: "",
         password: "",
         passwordConfirm: "",
     };
@@ -41,7 +44,7 @@ export const SignUpContainer = ({ onSubmit }) => {
     const SignUpForm = ({ onSubmit }) => {
         return (
             <View style={styles.container}>
-                <FormikTextInput name="userName" placeholder="Username"></FormikTextInput>
+                <FormikTextInput name="username" placeholder="Username"></FormikTextInput>
                 <FormikTextInput name="password" placeholder="Password" secureTextEntry={true}></FormikTextInput>
                 <FormikTextInput name="passwordConfirm" placeholder="Confirm password" secureTextEntry={true}></FormikTextInput>
                 <Pressable onPress={onSubmit} style={styles.signButton}>
@@ -61,8 +64,19 @@ export const SignUpContainer = ({ onSubmit }) => {
 };
 
 const SignUp = () => {
+    const [createUser] = useSignUp();
+    const [signIn] = useSignIn();
+
     const onSubmit = async (values) => {
         console.log(values);
+        const { username, password } = values;
+        try {
+            await createUser({ username, password });
+            await signIn({username, password});
+            
+        } catch (e) {
+            console.log(e);
+        }
     }
     return (
         <>

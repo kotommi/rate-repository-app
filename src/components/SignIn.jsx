@@ -41,7 +41,7 @@ export const SignInContainer = ({ onSubmit }) => {
                 <FormikTextInput name="username" placeholder="Username"></FormikTextInput>
                 <FormikTextInput name="password" placeholder="Password" secureTextEntry={true}></FormikTextInput>
                 <Pressable onPress={onSubmit} style={styles.signButton}>
-                    <Text>Sign in</Text>
+                    <Text color={"textWhite"}>Sign in</Text>
                 </Pressable>
             </View>
         );
