@@ -7,6 +7,7 @@ import Text from "./Text";
 import { useParams } from "react-router-native";
 import theme from "../theme";
 import { format } from "date-fns";
+import { ItemSeparator } from "./RepositoryList";
 
 const styles = StyleSheet.create({
     cardContainer: {
@@ -74,6 +75,7 @@ const Repository = () => {
         <FlatList
             data={reviews}
             renderItem={({ item }) => <ReviewItem review={item} />}
+            ItemSeparatorComponent={ItemSeparator}
             keyExtractor={({ id }) => id}
             ListHeaderComponent={() => <RepositoryInfo repository={repo} />}
         // ...

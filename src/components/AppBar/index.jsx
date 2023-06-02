@@ -33,7 +33,14 @@ const AppBar = () => {
         console.log("removed auth");
     }
 
-
+    const SignedInTabs = () => {
+        return (
+            <>
+                <AppBarTab title={"Create review"} linkTo={"/review"} style={styles.tabStyle} />
+                <AppBarTab title={"Sign out"} onPress={handleSignOut} style={styles.tabStyle} />
+            </>
+        )
+    }
 
     return (
         <View style={styles.container}>
@@ -41,7 +48,7 @@ const AppBar = () => {
                 <AppBarTab title={"Repositories"} linkTo={"/"} ></AppBarTab>
                 {!userName ?
                     <AppBarTab title={"Sign In"} linkTo={"/signin"} style={styles.tabStyle} /> :
-                    <AppBarTab title={"Sign out"} onPress={handleSignOut} style={styles.tabStyle} />
+                    SignedInTabs()
                 }
             </ScrollView>
         </View>
