@@ -4,6 +4,8 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import theme from '../theme';
+import useReview from '../hooks/useReview';
+import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
     container: {
@@ -60,8 +62,19 @@ const CreateReviewContainer = ({ onSubmit }) => {
 }
 
 const CreateReview = () => {
-    const onSubmit = () => {
-        console.log("asd");
+
+    const [createReview] = useReview();
+    const navigate = useNavigate();
+
+    const onSubmit = async (values) => {
+        const { repoOwner, repoName, rating, review } = values;
+        try {
+            const data = await createReview({ ownerName: repoOwner, repositoryName: repoName, text: review, rating: Number(rating) })
+            console.log(data);
+            navigate("/");
+        } catch (e) {
+            console.log(e);
+        }
     }
     return <CreateReviewContainer onSubmit={onSubmit} />
 }

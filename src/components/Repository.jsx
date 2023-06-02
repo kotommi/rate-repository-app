@@ -66,10 +66,7 @@ const Repository = () => {
     const repo = repoResponse?.repository?.repository
     const reviews = reviewResponse?.repository?.repository?.reviews?.edges.map(e => e.node);
 
-    console.log(reviews);
-    console.log(repo);
     if (!repo || !reviews) return null;
-
 
     return (
         <FlatList
