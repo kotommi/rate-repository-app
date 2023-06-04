@@ -19,8 +19,13 @@ const styles = StyleSheet.create({
     signButton: {
         backgroundColor: theme.colors.primary,
         borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        padding: 5,
+        margin: 5,
+        paddingVertical: 10
+    },
+    inputContainer: {
+        padding: 5,
+        margin: 5,
     }
 })
 
@@ -38,10 +43,10 @@ export const SignInContainer = ({ onSubmit }) => {
     const SignInForm = ({ onSubmit }) => {
         return (
             <View style={styles.container}>
-                <FormikTextInput name="username" placeholder="Username"></FormikTextInput>
-                <FormikTextInput name="password" placeholder="Password" secureTextEntry={true}></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="username" placeholder="Username"></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="password" placeholder="Password" secureTextEntry={true}></FormikTextInput>
                 <Pressable onPress={onSubmit} style={styles.signButton}>
-                    <Text color={"textWhite"}>Sign in</Text>
+                    <Text color={"textWhite"} style={{ textAlign: "center" }}>Sign in</Text>
                 </Pressable>
             </View>
         );

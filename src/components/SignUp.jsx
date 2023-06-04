@@ -6,11 +6,9 @@ import * as yup from 'yup';
 import theme from '../theme';
 import useSignUp from '../hooks/useSignUp';
 import useSignIn from '../hooks/useSignIn';
-import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
     container: {
-        maxWidth: 400,
         flexDirection: 'column',
         textAlign: "center",
         backgroundColor: "white",
@@ -21,8 +19,13 @@ const styles = StyleSheet.create({
     signButton: {
         backgroundColor: theme.colors.primary,
         borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        padding: 5,
+        margin: 5,
+        paddingVertical: 10
+    },
+    inputContainer: {
+        padding: 5,
+        margin: 5,
     }
 })
 
@@ -44,11 +47,11 @@ export const SignUpContainer = ({ onSubmit }) => {
     const SignUpForm = ({ onSubmit }) => {
         return (
             <View style={styles.container}>
-                <FormikTextInput name="username" placeholder="Username"></FormikTextInput>
-                <FormikTextInput name="password" placeholder="Password" secureTextEntry={true}></FormikTextInput>
-                <FormikTextInput name="passwordConfirm" placeholder="Confirm password" secureTextEntry={true}></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="username" placeholder="Username"></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="password" placeholder="Password" secureTextEntry={true}></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="passwordConfirm" placeholder="Confirm password" secureTextEntry={true}></FormikTextInput>
                 <Pressable onPress={onSubmit} style={styles.signButton}>
-                    <Text color={"textWhite"}>Sign up</Text>
+                    <Text style={{ textAlign: "center" }} color={"textWhite"}>Sign up</Text>
                 </Pressable>
             </View>
         );
@@ -72,8 +75,8 @@ const SignUp = () => {
         const { username, password } = values;
         try {
             await createUser({ username, password });
-            await signIn({username, password});
-            
+            await signIn({ username, password });
+
         } catch (e) {
             console.log(e);
         }

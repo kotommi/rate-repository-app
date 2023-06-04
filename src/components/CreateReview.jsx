@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-native';
 
 const styles = StyleSheet.create({
     container: {
-        maxWidth: 400,
         flexDirection: 'column',
         textAlign: "center",
         backgroundColor: "white",
@@ -20,8 +19,13 @@ const styles = StyleSheet.create({
     signButton: {
         backgroundColor: theme.colors.primary,
         borderRadius: 5,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        padding: 5,
+        margin: 5,
+        paddingVertical: 10
+    },
+    inputContainer: {
+        padding: 5,
+        margin: 5,
     }
 })
 
@@ -44,12 +48,12 @@ const CreateReviewContainer = ({ onSubmit }) => {
     const CreateForm = ({ onSubmit }) => {
         return (
             <View style={styles.container}>
-                <FormikTextInput name="repoOwner" placeholder="Repository owner"></FormikTextInput>
-                <FormikTextInput name="repoName" placeholder="Repository name"></FormikTextInput>
-                <FormikTextInput name="rating" placeholder="Numerical rating 0-100"></FormikTextInput>
-                <FormikTextInput name="review" placeholder="Review content" multiline="true"></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="repoOwner" placeholder="Repository owner"></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="repoName" placeholder="Repository name"></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="rating" placeholder="Numerical rating 0-100"></FormikTextInput>
+                <FormikTextInput style={styles.inputContainer} name="review" placeholder="Review content" multiline={true}></FormikTextInput>
                 <Pressable onPress={onSubmit} style={styles.signButton}>
-                    <Text color={"textWhite"}>Submit review</Text>
+                    <Text color={"textWhite"} style={{ textAlign: "center" }}>Submit review</Text>
                 </Pressable>
             </View>
         );

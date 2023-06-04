@@ -37,7 +37,12 @@ const styles = StyleSheet.create({
 
 const RepositoryInfo = ({ repository }) => {
     // Repository's information implemented in the previous exercise
-    return <Card item={repository} showGitHub={true}></Card>
+    return (
+        <>
+            <Card item={repository} showGitHub={true}></Card>
+            <ItemSeparator></ItemSeparator>
+        </>
+    )
 };
 
 const ReviewItem = ({ review }) => {

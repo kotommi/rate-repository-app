@@ -5,7 +5,6 @@ import { StyleSheet, View, Image, Pressable, Linking } from "react-native";
 const styles = StyleSheet.create({
     cardContainer: {
         flexDirection: "column",
-        maxWidth: 400,
         backgroundColor: "white",
         flexGrow: 0,
         padding: 5,
@@ -55,6 +54,11 @@ const styles = StyleSheet.create({
         flexGrow: 0,
         justifyContent: "center",
         alignItems: "center"
+    },
+    descriptionContainer: {
+    },
+    textStyle: {
+        width: "80%"
     }
 })
 
@@ -69,7 +73,9 @@ const CardHeader = ({ item }) => {
             </View>
             <View style={styles.nameContainer}>
                 <Text fontWeight={"bold"}>{item.fullName}</Text>
-                <Text>{item.description}</Text>
+                <View style={styles.descriptionContainer}>
+                    <Text style={styles.textStyle}>{item.description}</Text>
+                </View>
                 <Text style={styles.languageBadge} color={"textWhite"}>{item.language}</Text>
             </View>
         </View>
