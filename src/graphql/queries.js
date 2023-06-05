@@ -3,15 +3,15 @@ import { REPO_PARTS } from './fragments';
 
 export const GET_REPOSITORIES = gql`
 ${REPO_PARTS}
-query Repositories {
-    repositories {
-      edges {
-        node {
-          ...RepoParts
-        }
+query GET_REPOSITORIES($orderBy: AllRepositoriesOrderBy, $orderDirection: OrderDirection) {
+  repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
+    edges {
+      node {
+        ...RepoParts       
       }
     }
   }
+}
 `;
 
 export const ME_SIGNED = gql`
