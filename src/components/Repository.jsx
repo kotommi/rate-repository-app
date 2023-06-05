@@ -44,7 +44,7 @@ const RepositoryInfo = ({ repository }) => {
     )
 };
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
     // Single review item
     const dateString = format(new Date(review.createdAt), "dd.MM.yyyy")
     return (
@@ -53,7 +53,7 @@ const ReviewItem = ({ review }) => {
                 <Text style={styles.circleText} >{review.rating}</Text>
             </View>
             <View style={styles.textContainer}>
-                <Text fontWeight={"bold"}>{review.user.username}</Text>
+                {review.user ? <Text fontWeight={"bold"}>{review.user.username}</Text> : null}
                 <Text>{dateString}</Text>
                 <Text numberOfLines={3}>{review.text}</Text>
             </View>
