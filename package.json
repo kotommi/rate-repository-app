@@ -28,7 +28,7 @@
     "date-fns": "^2.30.0",
     "dotenv": "^16.0.3",
     "expo": "~46.0.21",
-    "expo-linking": "^4.0.1",
+    "expo-linking": "~3.2.4",
     "expo-status-bar": "~1.4.0",
     "formik": "^2.2.9",
     "graphql": "^15.8.0",
@@ -38,6 +38,7 @@
     "react-native-safe-area-context": "^4.5.3",
     "react-native-web": "~0.18.7",
     "react-router-native": "^6.11.2",
+    "use-debounce": "^9.0.4",
     "yup": "^1.1.1"
   },
   "devDependencies": {

@@ -3,11 +3,22 @@ import RepositoryItem from './RepositoryItem';
 import useRepositories from '../../hooks/useRepositories';
 import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
+import SearchBar from './SearchBar';
+import { useDebounce } from "use-debounce";
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
+  headerContainer: {
+    flexDirection: "row",
+    flexGrow: 1,
+  },
+  pickerContainer: {
+    margin: 3,
+    padding: 3,
+  }
+
 });
 
 
@@ -15,10 +26,13 @@ export const ItemSeparator = () => <View style={styles.separator} />;
 
 
 
-const OrderPicker = ({initialOrder, setOrder}) => {
+const RepoListHeader = ({ initialOrder, setOrder, setSearchParam, searchText }) => {
+
+
   return (
-    <View>
+    <View style={styles.headerContainer}>
       <Picker
+        style={styles.pickerContainer}
         selectedValue={initialOrder}
         // eslint-disable-next-line no-unused-vars
         onValueChange={(itemValue, _itemIndex) =>
@@ -28,16 +42,17 @@ const OrderPicker = ({initialOrder, setOrder}) => {
         <Picker.Item label="Highest rated repositories" value="highest" />
         <Picker.Item label="Lowest rated repositories" value="lowest" />
       </Picker>
+      <SearchBar setSearchParam={setSearchParam} searchText={searchText} />
     </View>
   )
 }
 
-export const RepositoryListContainer = ({ repositories, initialOrder, setOrder }) => {
+export const RepositoryListContainer = ({ repositories, initialOrder, setOrder, setSearchParam, searchText }) => {
   const repoNodes = repositories ? repositories.edges.map(e => e.node) : [];
 
   return (
     <FlatList
-      ListHeaderComponent={() => <OrderPicker setOrder={setOrder} initialOrder={initialOrder}/>}
+      ListHeaderComponent={() => <RepoListHeader setOrder={setOrder} initialOrder={initialOrder} searchText={searchText} setSearchParam={setSearchParam} />}
       data={repoNodes}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={(item) => {
@@ -52,10 +67,13 @@ export const RepositoryListContainer = ({ repositories, initialOrder, setOrder }
 const RepositoryList = () => {
 
   const [order, setOrder] = useState("latest");
-  const { repositories } = useRepositories(order);
+  const [text, setText] = useState("");
+  const [debouncedText] = useDebounce(text, 500);
+
+  const { repositories } = useRepositories(order, debouncedText);
 
 
-  return <RepositoryListContainer repositories={repositories} initialOrder={order} setOrder={setOrder}/>
+  return <RepositoryListContainer repositories={repositories} initialOrder={order} setOrder={setOrder} searchText={text} setSearchParam={setText} />
 
 };
 
