@@ -11,7 +11,6 @@ import { ItemSeparator } from "./RepositoryList";
 
 const styles = StyleSheet.create({
     cardContainer: {
-        maxWidth: 400,
         backgroundColor: "white",
         padding: 5,
         flexDirection: "row",

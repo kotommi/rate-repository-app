@@ -8,7 +8,6 @@ import useSignIn from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
     container: {
-        maxWidth: 400,
         flexDirection: 'column',
         textAlign: "center",
         backgroundColor: "white",
