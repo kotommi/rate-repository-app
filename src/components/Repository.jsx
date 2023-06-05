@@ -53,7 +53,7 @@ export const ReviewItem = ({ review }) => {
                 <Text style={styles.circleText} >{review.rating}</Text>
             </View>
             <View style={styles.textContainer}>
-                {review.user ? <Text fontWeight={"bold"}>{review.user.username}</Text> : null}
+                {review.user ? <Text fontWeight={"bold"}>{review.user.username}</Text> : <Text fontWeight={"bold"}>{review?.repository.fullName}</Text>}
                 <Text>{dateString}</Text>
                 <Text numberOfLines={3}>{review.text}</Text>
             </View>
