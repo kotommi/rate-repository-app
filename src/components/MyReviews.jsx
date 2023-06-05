@@ -2,7 +2,7 @@ import { FlatList, Pressable } from "react-native";
 import { ReviewItem } from "./Repository";
 import { ItemSeparator } from "./RepositoryList";
 import useUserReviews from "../hooks/useUserReviews";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
 import { useNavigate } from "react-router-native";
@@ -40,8 +40,26 @@ const styles = StyleSheet.create({
     }
 })
 
-const ReviewCard = ({ review }) => {
+const ReviewCard = ({ review, deleteFunction }) => {
     const navigate = useNavigate();
+
+    const onDeletePress = () => {
+        console.log(`deleting ${review.id}`);
+        deleteFunction(review.id);
+    }
+
+    const deleteAlert = () => {
+        return Alert.alert("Confirm delete", "Are you sure you want to delete this review?", [{
+            text: "Cancel",
+            style: "cancel",
+        },
+        {
+            text: "Delete",
+            style: "destructive",
+            onPress: onDeletePress,
+        }
+        ])
+    }
 
     return (
         <>
@@ -51,7 +69,7 @@ const ReviewCard = ({ review }) => {
                     <Pressable onPress={() => navigate(`/repository/${review.repository.id}`)}>
                         <Text color="textWhite" style={styles.repoButtonStyle}>View Repository</Text>
                     </Pressable>
-                    <Pressable >
+                    <Pressable onPress={deleteAlert}>
                         <Text color="textWhite" style={styles.deleteButtonStyle}>Delete review</Text>
                     </Pressable>
                 </View>
@@ -61,13 +79,14 @@ const ReviewCard = ({ review }) => {
 }
 
 const MyReviews = () => {
-    const { reviews } = useUserReviews();
+    const [{ reviews }, deleteReview] = useUserReviews();
+
 
     return (
         <>
             <FlatList
                 data={reviews}
-                renderItem={({ item }) => <ReviewCard review={item} />}
+                renderItem={({ item }) => <ReviewCard review={item} deleteFunction={deleteReview} />}
                 ItemSeparatorComponent={ItemSeparator}
                 keyExtractor={({ id }) => id}
             />
