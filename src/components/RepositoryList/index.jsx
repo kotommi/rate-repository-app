@@ -5,13 +5,14 @@ import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import SearchBar from './SearchBar';
 import { useDebounce } from "use-debounce";
+import React from 'react';
 
 const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
   headerContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     flexGrow: 1,
   },
   pickerContainer: {
@@ -24,44 +25,46 @@ const styles = StyleSheet.create({
 
 export const ItemSeparator = () => <View style={styles.separator} />;
 
+export class RepositoryListContainer extends React.Component {
+
+  renderHeader = () => {
+    const props = this.props;
+    const { initialOrder, setOrder, setSearchParam, searchText } = props;
+
+    return (
+      <View style={styles.headerContainer}>
+        <Picker
+          style={styles.pickerContainer}
+          selectedValue={initialOrder}
+          // eslint-disable-next-line no-unused-vars
+          onValueChange={(itemValue, _itemIndex) =>
+            setOrder(itemValue)
+          }>
+          <Picker.Item label="Latest repositories" value="latest" />
+          <Picker.Item label="Highest rated repositories" value="highest" />
+          <Picker.Item label="Lowest rated repositories" value="lowest" />
+        </Picker>
+        <SearchBar setSearchParam={setSearchParam} searchText={searchText} />
+      </View>
+    )
+  }
 
 
-const RepoListHeader = ({ initialOrder, setOrder, setSearchParam, searchText }) => {
-
-
-  return (
-    <View style={styles.headerContainer}>
-      <Picker
-        style={styles.pickerContainer}
-        selectedValue={initialOrder}
-        // eslint-disable-next-line no-unused-vars
-        onValueChange={(itemValue, _itemIndex) =>
-          setOrder(itemValue)
-        }>
-        <Picker.Item label="Latest repositories" value="latest" />
-        <Picker.Item label="Highest rated repositories" value="highest" />
-        <Picker.Item label="Lowest rated repositories" value="lowest" />
-      </Picker>
-      <SearchBar setSearchParam={setSearchParam} searchText={searchText} />
-    </View>
-  )
-}
-
-export const RepositoryListContainer = ({ repositories, initialOrder, setOrder, setSearchParam, searchText }) => {
-  const repoNodes = repositories ? repositories.edges.map(e => e.node) : [];
-
-  return (
-    <FlatList
-      ListHeaderComponent={() => <RepoListHeader setOrder={setOrder} initialOrder={initialOrder} searchText={searchText} setSearchParam={setSearchParam} />}
-      data={repoNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={(item) => {
-        return (
-          <RepositoryItem item={item} />
-        )
-      }}
-    />
-  );
+  render() {
+    const repoNodes = this.props.repositories ? this.props.repositories.edges.map(e => e.node) : [];
+    return (
+      <FlatList
+        ListHeaderComponent={this.renderHeader}
+        data={repoNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={(item) => {
+          return (
+            <RepositoryItem item={item} />
+          )
+        }}
+      />
+    );
+  }
 }
 
 const RepositoryList = () => {
