@@ -56,6 +56,8 @@ export class RepositoryListContainer extends React.Component {
       <FlatList
         ListHeaderComponent={this.renderHeader}
         data={repoNodes}
+        onEndReached={this.props.onEndReach}
+        onEndReachedThreshold={.5}
         ItemSeparatorComponent={ItemSeparator}
         renderItem={(item) => {
           return (
@@ -73,10 +75,13 @@ const RepositoryList = () => {
   const [text, setText] = useState("");
   const [debouncedText] = useDebounce(text, 500);
 
-  const { repositories } = useRepositories(order, debouncedText);
+  const { repositories, fetchMore } = useRepositories(order, debouncedText);
+  console.log(repositories);
+
+  const onEndReach = () => fetchMore();
 
 
-  return <RepositoryListContainer repositories={repositories} initialOrder={order} setOrder={setOrder} searchText={text} setSearchParam={setText} />
+  return <RepositoryListContainer repositories={repositories} initialOrder={order} setOrder={setOrder} searchText={text} setSearchParam={setText} onEndReach={onEndReach} />
 
 };
 

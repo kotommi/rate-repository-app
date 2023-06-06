@@ -22,15 +22,30 @@ const useRepositories = (order = "latest", searchKeyword = "") => {
         }
     };
 
-    const { data, ...result } = useQuery(GET_REPOSITORIES, {
+    const { data, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
         fetchPolicy: 'cache-and-network',
         variables: {
             ...args[order],
-            searchKeyword
+            searchKeyword,
+            first: 8,
         }
     });
 
-    return { repositories: data ? data.repositories : undefined, ...result };
+    const handleFetchMore = () => {
+        const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+        if (!canFetchMore) return;
+
+        fetchMore({
+            variables: {
+                after: data.repositories.pageInfo.endCursor,
+                ...args[order,
+                searchKeyword],
+                first: 8,
+            }
+        })
+    }
+
+    return { repositories: data ? data.repositories : undefined, fetchMore: handleFetchMore, loading, ...result };
 };
 
 export default useRepositories;
