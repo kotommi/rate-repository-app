@@ -65,10 +65,14 @@ export const ReviewItem = ({ review }) => {
 const Repository = () => {
     const { id } = useParams();
     const repoResponse = useRepository(id);
-    const reviewResponse = useReviews(id);
+    const { repository, fetchMore } = useReviews(id);
 
     const repo = repoResponse?.repository?.repository
-    const reviews = reviewResponse?.repository?.repository?.reviews?.edges.map(e => e.node);
+    const reviews = repository?.repository?.reviews?.edges?.map(e => e.node);
+
+    const onEndReach = () => {
+        fetchMore();
+    }
 
     if (!repo || !reviews) return null;
 
@@ -79,6 +83,8 @@ const Repository = () => {
             ItemSeparatorComponent={ItemSeparator}
             keyExtractor={({ id }) => id}
             ListHeaderComponent={() => <RepositoryInfo repository={repo} />}
+            onEndReached={onEndReach}
+            onEndReachedThreshold={.5}
         // ...
         />
     );

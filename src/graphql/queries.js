@@ -62,11 +62,11 @@ query REPO($id: ID!) {
 `
 
 export const GET_REVIEWS = gql`
-query GET_REVIEWS($id: ID!) {
+query GET_REVIEWS($id: ID!, $first: Int, $after: String) {
   repository(id: $id) {
     id
     fullName
-    reviews {
+    reviews(first: $first, after: $after) {
       edges{
         node {
           id
@@ -78,6 +78,11 @@ query GET_REVIEWS($id: ID!) {
             username
           }
         }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

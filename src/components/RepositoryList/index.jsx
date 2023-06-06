@@ -76,7 +76,6 @@ const RepositoryList = () => {
   const [debouncedText] = useDebounce(text, 500);
 
   const { repositories, fetchMore } = useRepositories(order, debouncedText);
-  console.log(repositories);
 
   const onEndReach = () => fetchMore();
 
